@@ -1,7 +1,7 @@
 var questions = [
     {
       title: "Commonly used data types DO NOT include:",
-      choices: ["strings", "booleans", "alerts", "numbers"],
+      choices: ["strings", "bigint", "alerts", "numbers"],
       answer: "alerts"
     },
     {
@@ -22,33 +22,38 @@ var questions = [
         answer: "array"
         } 
        ]
-
+      
       const $ = document.querySelector.bind(document); 
 
       document.querySelector("body").innerHTML += `
-      <div class="score">score = 0</div>
-      <div class="time">time = 0</div> 
+      <div class="header">
+        <div class="score">score = 0</div>
+        <div class="time">time = 0</div> 
+      </div> 
+      <div class="content"> 
+      </div>  
+      
+      
       <button class="start-button">Start Game</button>
       `
       var startButton = document.querySelector(".start-button");
 
       document.querySelector('.start-button').addEventListener('click', function(){
-        event.preventDefault; 
+        event.preventDefault(); 
         var time = 3; 
         var index = 0; 
         var timeEl = document.querySelector(".time")
-        timeEl.innerHTML = `time = ${time}`; 
+        // timeEl.innerHTML = `time = ${time}`; 
         var timerInterval = setInterval(function(){
           time--; 
-          timeEl.innerHTML = time;
+          document.querySelector(".time").innerHTML = `<div>time : ${time}</div>`;
           //console.log(time);  
           if(time === 0){
             clearInterval(timerInterval); 
           }
         },1000)
-        index++
         getQuestions(time, index, timeEl); 
-          })
+        })
 
 
           function getQuestions(time, index, timeEl){
@@ -57,20 +62,40 @@ var questions = [
             //console.log(time); 
             startButton.remove; 
 
-            document.querySelector('body').innerHTML = 
-              ` timeEl.innerHTML = ${timeEl} 
-                <h2>${questions[0].title}</h2>
+            document.querySelector('.content').innerHTML = 
+              `
+                <h2>${questions[index].title}</h2>
 
               `; 
-              var choice = questions[0].choices;
+              var choice = questions[index].choices;
               //console.log(choice); 
-              for(var i = 0; i < choice.length; i++){
+              for(i = 0; i < choice.length; i++){
                 document.querySelector("body").innerHTML += 
-                `<p class = choices-${i+1} value = ${choice[i]}>${choice[i]} </p>`
-              pickChoice(); 
-            }
+                `<p class = choices-${i} value = ${choice[i]}>${choice[i]} </p>`
 
-        function pickedChoice(){
-          var aChoice = document.querySelector(".choices"); 
-          console.log(aChoice); 
-        };
+            }
+            pickedChoice(i, index,time); 
+          } 
+        function pickedChoice(index, time){
+          console.log(questions[index].answer); 
+          var aChoice1 = document.querySelector(`.choices-1`); 
+          var aChoice2 = document.querySelector(`.choices-2`); 
+          var aChoice3 = document.querySelector(`.choices-3`); 
+          var aChoice4 = document.querySelector(`.choices-4`); 
+
+
+          aChoice1.addEventListener("click",function(){
+            console.log(aChoice1.getAttribute('value'))
+            index++; 
+
+            console.log(questions); 
+            if(aChoice1.getAttribute('value') === questions[index].answer){
+              getQuestions(index,null )
+            }else{
+              time = time - 15; 
+              getQuestions(index, null); 
+
+            }
+          }
+        )
+      };
