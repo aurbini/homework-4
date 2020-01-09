@@ -1,0 +1,27 @@
+.body {
+    font-family: 'Georgia', Times, 'Times New Roman', serif;
+}
+.container {
+    margin-top: 100px; 
+    width: 70%;
+
+}
+.questions {
+    font-size: 32px;
+
+}
+#starter-button {
+    margin-bottom: 20px; 
+    height: 20px; 
+    margin-left: 30px;
+    
+}
+.buttons {
+    background-color: blue; 
+    color: white; 
+    margin-top: 10px; 
+    height: 20px; 
+}
+#answers-list {
+    list-style: none;
+}
