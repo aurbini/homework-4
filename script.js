@@ -38,6 +38,9 @@ var questions = [
       `
       var startButton = document.querySelector(".start-button");
 
+
+      
+
       document.querySelector('.start-button').addEventListener('click', function(){
         event.preventDefault(); 
         var time = 3; 
@@ -60,24 +63,25 @@ var questions = [
             //console.log(timeEl); 
             //console.log(index); 
             //console.log(time); 
-            startButton.remove; 
-
+            startButton.remove(); 
+         
             document.querySelector('.content').innerHTML = 
               `
                 <h2>${questions[index].title}</h2>
-
               `; 
               var choice = questions[index].choices;
               //console.log(choice); 
               for(i = 0; i < choice.length; i++){
-                document.querySelector("body").innerHTML += 
+                document.querySelector(".content").innerHTML += 
                 `<p class = choices-${i} value = ${choice[i]}>${choice[i]} </p>`
 
             }
+            //console.log(index); 
             pickedChoice(i, index,time); 
-          } 
-        function pickedChoice(index, time){
-          console.log(questions[index].answer); 
+          }
+
+        function pickedChoice(i, index, time){
+          //console.log(questions[index].answer); 
           var aChoice1 = document.querySelector(`.choices-1`); 
           var aChoice2 = document.querySelector(`.choices-2`); 
           var aChoice3 = document.querySelector(`.choices-3`); 
@@ -85,17 +89,26 @@ var questions = [
 
 
           aChoice1.addEventListener("click",function(){
-            console.log(aChoice1.getAttribute('value'))
-            index++; 
+            // console.log("bla")
+            // console.log(aChoice1.getAttribute('value'))
 
-            console.log(questions); 
-            if(aChoice1.getAttribute('value') === questions[index].answer){
-              getQuestions(index,null )
-            }else{
-              time = time - 15; 
-              getQuestions(index, null); 
+          //  console.log(questions);
+             console.log(index); 
+             if(aChoice1.getAttribute('value') === questions[index].answer){
+              console.log("bla") 
+              index++; 
+              console.log("index", index)
+              getQuestions(i, index,null)
+             }else{
+              console.log(index);
+              index++; 
+              getQuestions(i, index,null)
 
-            }
-          }
-        )
-      };
+              //console.log("bla")
+               //time = time - 15; 
+              // getQuestions(index, null); 
+
+             }
+          
+         })
+      }
