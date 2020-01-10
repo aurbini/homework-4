@@ -5,3 +5,9 @@
     display: 'none'; 
     list-style-type: none;
 }
+p {
+    border: black 1px solid; 
+}
+#go-back{
+    display: none;
+}

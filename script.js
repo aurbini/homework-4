@@ -4,8 +4,19 @@ var gameArea = document.getElementById('game-area');
 var choiceList = document.getElementById('choice-list'); 
 var choices = document.getElementById('choices'); 
 var timer = document.getElementById('time'); 
+var scoreArea = document.getElementById("score-area");
 
+
+
+var scoreForm = document.createElement('form'); 
+var showScore = document.createElement('span')
+var initialsForm = document.createElement('input');
+var enterScore = document.createElement('submit');
+
+var scoreInitialForm = document.createElement('div');
 //starter data 
+var finalScore = document.createElement('p'); 
+
 var questions = [
   {
     title: "Commonly used data types DO NOT include:",
@@ -33,8 +44,8 @@ answer: "loop"
 
 //global variables 
 var time = 0; 
+var finalScore; 
 var questionTitle = document.createElement('h2')
-
 //index of currrent question 
 var currentQuestion = 0; 
 
@@ -56,18 +67,11 @@ var startGame = function (){
   getQuestion(questionTitle); 
 }
 function getQuestion(questionTitle){
-  //build out the content
-  //console.log(questions[currentQuestion].title)
-  //console.log(currentQuestion)
   questionTitle.textContent = questions[currentQuestion].title; 
-  //place the h2 in the game area 
   gameArea.appendChild(questionTitle);
   //Run through the array of questions 
   
   for(var i = 0; i <= questions[currentQuestion].choices.length;i++){
-    //console.log(i); 
-    //onsole.log(questions[currentQuestion].choices.length)
-    //create element for current choice and add content
     var choice = document.createElement('p');
     choice.textContent = questions[currentQuestion].choices[i]; 
     choice.setAttribute('id', `choice${i}`); 
@@ -84,31 +88,32 @@ function choiceChecker(){
       while (choices.firstChild) {
         choices.removeChild(choices.firstChild);
       }//console.log('loop end')
-      //choiceList.removeChild(choiceList.lastElementChild); 
       getQuestion(questionTitle); 
       }else{
-      //currentQuestion++
+      time = time - 10; 
       currentQuestion++
       while (choices.firstChild) {
         choices.removeChild(choices.firstChild);
         }
-      // event.target.innerText = ''
-      //console.log(questionTitle); 
-      //choiceList.removeChild(choiceList.lastElementChild); 
-
       getQuestion(questionTitle); }
     }else {
       timer.remove(); 
-      gameArea.innerHTML = '';
-      var scoreForm = document.createElement('form'); 
-      scoreForm.innerText = time; 
-      gameArea.appendChild(scoreForm);  
+      gameArea.innerHTML = ''; 
+      initialsForm.setAttribute('type', 'text'); 
+      showScore.innerText = time;
+      enterScore.setAttribute('type', 'submit');  
+      enterScore.innerHTML = 'enter score'; 
+
+
+      gameArea.appendChild(scoreForm);
+      scoreForm.appendChild(showScore);
+      scoreForm.appendChild(initialsForm);
+      gameArea.appendChild(enterScore); 
+     
     }
 }
 
 function notGameOver(){
-  //console.log(currentQuestion); 
-  //console.log(questions.length); 
   if(currentQuestion === questions.length -1){
     return false; 
   }
@@ -118,6 +123,33 @@ function notGameOver(){
     return false; 
 }
 }
- //Events or user inputs
- startGameButton.addEventListener('click', startGame); 
- choices.addEventListener('click',choiceChecker); 
+
+function storeScore(event){
+   if(initialsForm.value.length !== 0){
+    gameArea.innerHTML = ''; 
+    finalScore = time; 
+    console.log(finalScore); 
+    var scoreObjects = {
+       initials : initialsForm.value,
+       score: finalScore
+   }
+  //console.log(scoreObjects);
+  window.localStorage.setItem('scoreItem',JSON.stringify(scoreObjects));
+  printScore(); 
+  }
+}
+var goBack = document.getElementById('go-back');
+
+function printScore(){
+  goBack.setAttribute("style", "display: block;");
+  var player = JSON.parse(window.localStorage.getItem('scoreItem'));
+  var playerScore = document.createElement('p');
+  playerScore.innerText = player.initials + ":" + player.score
+  scoreArea.appendChild(playerScore); 
+}
+
+
+//
+startGameButton.addEventListener('click', startGame); 
+choices.addEventListener('click',choiceChecker); 
+enterScore.addEventListener('click', storeScore);
