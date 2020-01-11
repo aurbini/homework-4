@@ -11,3 +11,6 @@ p {
 #go-back{
     display: none;
 }
+#clear-score {
+    display: none; 
+}

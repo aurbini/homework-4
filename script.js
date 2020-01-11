@@ -5,15 +5,11 @@ var choiceList = document.getElementById('choice-list');
 var choices = document.getElementById('choices'); 
 var timer = document.getElementById('time'); 
 var scoreArea = document.getElementById("score-area");
-
-
-
 var scoreForm = document.createElement('form'); 
 var showScore = document.createElement('span')
 var initialsForm = document.createElement('input');
-var enterScore = document.createElement('submit');
-
 var scoreInitialForm = document.createElement('div');
+var stats = document.getElementById('stats'); 
 //starter data 
 var finalScore = document.createElement('p'); 
 
@@ -57,6 +53,7 @@ var startGame = function (){
     time--; 
     timer.textContent = time; 
     if(time === 0){
+      
       clearInterval(timerInterval); 
     }
   },1000)
@@ -101,15 +98,10 @@ function choiceChecker(){
       gameArea.innerHTML = ''; 
       initialsForm.setAttribute('type', 'text'); 
       showScore.innerText = time;
-      enterScore.setAttribute('type', 'submit');  
-      enterScore.innerHTML = 'enter score'; 
-
 
       gameArea.appendChild(scoreForm);
       scoreForm.appendChild(showScore);
-      scoreForm.appendChild(initialsForm);
-      gameArea.appendChild(enterScore); 
-     
+      scoreForm.appendChild(initialsForm);     
     }
 }
 
@@ -128,28 +120,48 @@ function storeScore(event){
    if(initialsForm.value.length !== 0){
     gameArea.innerHTML = ''; 
     finalScore = time; 
-    console.log(finalScore); 
     var scoreObjects = {
        initials : initialsForm.value,
        score: finalScore
    }
-  //console.log(scoreObjects);
-  window.localStorage.setItem('scoreItem',JSON.stringify(scoreObjects));
-  printScore(); 
+   window.localStorage.setItem('scoreItem',JSON.stringify(scoreObjects));
+   printScore(); 
   }
 }
 var goBack = document.getElementById('go-back');
+var clearScore = document.getElementById('clear-score');
+// clearScore.setAttribute("style","display: block;");
+
+
+//  console.log('hello'); 
+
 
 function printScore(){
   goBack.setAttribute("style", "display: block;");
+  //clearScore.setAttribute("style","display: block;");
+
   var player = JSON.parse(window.localStorage.getItem('scoreItem'));
   var playerScore = document.createElement('p');
   playerScore.innerText = player.initials + ":" + player.score
   scoreArea.appendChild(playerScore); 
+
+}
+ function reset(event){
+  scoreArea.innerHTML = '';
+  goBack.setAttribute('style','display: none;')
+  startGameButton.setAttribute('style','display: block;')
+  time = 0; 
+  currentQuestion = 0; 
+  timer.innerText = time; 
+  score = 0; 
+  stats.appendChild(timer)
+  gameArea.appendChild(startGameButton);
+  gameArea.appendChild(choiceList); 
+
 }
 
 
-//
-startGameButton.addEventListener('click', startGame); 
-choices.addEventListener('click',choiceChecker); 
-enterScore.addEventListener('click', storeScore);
+ goBack.addEventListener('click', reset); 
+ startGameButton.addEventListener('click', startGame); 
+ choices.addEventListener('click',choiceChecker); 
+ scoreForm.addEventListener('change', storeScore);
