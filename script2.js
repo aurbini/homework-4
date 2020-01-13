@@ -169,7 +169,6 @@ goBack.addEventListener('click', init)
 clearScore.addEventListener('click', clearHighScores); 
 viewHighScore.addEventListener('click', renderScores);
 scoreForm.addEventListener('submit', function(event){
-  console.log(enterScoreInput.value)
   event.preventDefault(); 
   var initialText = enterScoreInput.value.trim(); 
   if (initialText === ""){
