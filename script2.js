@@ -177,6 +177,7 @@ scoreForm.addEventListener('submit', function(event){
   //Add a player-score to array and clear input 
   scoresObject.player = initialText;
   scoresObject.score = time; 
+  console.log(scoresArray); 
   scoresArray.push(scoresObject); 
   enterScoreInput.value = ""; 
   storeScore();
