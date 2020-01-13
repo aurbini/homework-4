@@ -7,7 +7,8 @@ var scoreForm = document.createElement('form');
 var goBack = document.createElement('button')
 var clearScore = document.createElement('button'); 
 var scoresList = document.createElement('ul'); 
-var enterScoreInput = document.createElement('input'); 
+var enterScoreInput = document.createElement('input');
+var ls = window.localStorage; 
 
 //Quiz Data 
 var questions = [
@@ -54,15 +55,12 @@ startGameButton.textContent = 'Start Game';
 gameDescription.textContent = 'This is a quiz to test your knowledge of programming. Your score will be a good indicator on how you are doing compared to your classmates. It will test you on the following languages of web development, Javascript, HTML and CSS. Your score will be judged on how fast you complete the quiz and every wrong answer will deduct 10 seconds from yuor score.'
 startGameButton.setAttribute('type', 'submit'); 
 
-function oldScores(){
-  var storedScores = JSON.parse(localStorage.getItem('scoreItem'));
-  if(storedScores !== null){
-    scoresArray = storedScores; 
-  }
-}oldScores(); 
-
 function init(){ 
   //get stored scores from local storage 
+  var oldScoresArray = JSON.parse(localStorage.getItem('scoresArray')); 
+if (oldScoresArray !== null){
+  scoresArray = oldScoresArray; 
+}
   gameArea.innerHTML = ''
   questionIndex = 0;
   time = 30; 
@@ -131,7 +129,9 @@ function enterInitials(){
   scoreForm.appendChild(enterScoreInput); 
 }
 function storeScore(){
-   window.localStorage.setItem('scoreItem',JSON.stringify(scoresArray));
+   ls.setItem('scoresArray',JSON.stringify(scoresArray));
+  //  var scoresArray = JSON.parse(ls.getItem(scoresArray))
+   
   }
 
   goBack.setAttribute('type', 'button'); 
@@ -144,7 +144,7 @@ function storeScore(){
   var highScoreTitle = document.createElement('h1'); 
   highScoreTitle.innerText = 'High Scores'; 
   gameArea.appendChild(highScoreTitle); 
-  scoresList.innerHtml = '';
+  scoresList.innerHTML = '';
   //Render a new li for each score
   for(var i = 0; i < scoresArray.length; i++){
     var userScore = scoresArray[i]; 
@@ -160,7 +160,7 @@ function storeScore(){
 function clearHighScores(){
   scoresArray = []; 
   scoresList.innerHTML = '';
-  window.localStorage.setItem('scoreItem',JSON.stringify(scoresArray));
+  window.localStorage.setItem('scoresArray',JSON.stringify(scoresArray));
   renderScores(); 
 }
 //events 
@@ -178,7 +178,6 @@ scoreForm.addEventListener('submit', function(event){
   //Add a player-score to array and clear input 
   scoresObject.player = initialText;
   scoresObject.score = time; 
-  console.log(scoresArray); 
   scoresArray.push(scoresObject); 
   enterScoreInput.value = ""; 
   storeScore();

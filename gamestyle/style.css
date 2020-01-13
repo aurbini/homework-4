@@ -1,0 +1,10 @@
+#choice0, #choice1,
+#choice2, #choice3 {
+  list-style: none;
+  background-color: purple; 
+  color: white; 
+  height: 20px; 
+  width: 70px; 
+  margin: 10px; 
+  padding: 10px auto; 
+}
