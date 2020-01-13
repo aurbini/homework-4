@@ -34,6 +34,7 @@ answer: "loop"
     answer: "array"
     } 
 ]
+
 //userScore data
 var scoresArray = [];
 var scoresObject = {
@@ -160,7 +161,7 @@ function clearHighScores(){
   scoresArray = []; 
   scoresList.innerHTML = '';
   window.localStorage.setItem('scoreItem',JSON.stringify(scoresArray));
-  render(); 
+  renderScores(); 
 }
 //events 
 startGameButton.addEventListener('click', newQuestions); 
