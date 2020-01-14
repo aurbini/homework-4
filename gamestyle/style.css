@@ -1,5 +1,20 @@
+/* #container {
+  width: 80%; 
+  display: flex; 
+  flex-direction: column;
+  margin:auto;
+  justify-content: center;
+} */
+
+#heading {
+  display: inline-block; 
+  width: auto; 
+  
+}
+
 #choice0, #choice1,
 #choice2, #choice3 {
+  display: block; 
   list-style: none;
   background-color: purple; 
   color: white; 
@@ -7,4 +22,15 @@
   width: 70px; 
   margin: 10px; 
   padding: 10px auto; 
+}
+#start-game-button {
+  padding-left: 20%;
+}
+#game-area {
+  margin-top: 100px; 
+  width: 80%; 
+  display: flex; 
+  flex-direction: column;
+  margin:auto;
+  justify-content: center;
 }

@@ -10,6 +10,9 @@ var scoresList = document.createElement('ul');
 var enterScoreInput = document.createElement('input');
 var ls = window.localStorage; 
 
+clearScore.setAttribute('style', 'max-width: 150px; display: inline-block; margin-top: 10px; ')
+
+goBack.setAttribute('style', 'max-width: 150px; display: inline-block;')
 //Quiz Data 
 var questions = [
   {
@@ -49,11 +52,13 @@ var time;
 var title = document.createElement('h1'); 
 var gameDescription = document.createElement('p'); 
 var startGameButton = document.createElement('button'); 
+startGameButton.setAttribute('style','padding-left: 30px;')
 //Create content for Start page
-title.textContent = 'Javascript Quiz Game'; 
+title.textContent = 'Javascript Quiz Game';
+title.setAttribute('style','margin-left: 20%;') 
 startGameButton.textContent = 'Start Game'; 
 gameDescription.textContent = 'This is a quiz to test your knowledge of programming. Your score will be a good indicator on how you are doing compared to your classmates. It will test you on the following languages of web development, Javascript, HTML and CSS. Your score will be judged on how fast you complete the quiz and every wrong answer will deduct 10 seconds from yuor score.'
-startGameButton.setAttribute('type', 'submit'); 
+startGameButton.setAttribute('style','max-width:100px; margin-left: 40%;'); 
 
 function init(){ 
   //get stored scores from local storage 
